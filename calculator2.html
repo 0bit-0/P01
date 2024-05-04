@@ -1,0 +1,221 @@
+<html>
+<head>
+<title>Calculator2</title>
+<link rel="stylesheet" href="calculator2.css">
+
+</head>
+<body>
+<div class="maincontainer flex space-around" id="maincontainer">
+	<form class="part1" id="part1">
+		<input class="led" id="led" type="text">
+		<div class="p1" id="p1">
+			<button class="click " id="b1" type="button" onclick="ac()">AC</button>
+			<button class="click" id="b1" type="button" onclick="ce()">C</button>
+			<button class="click" id="b1" type="button" onclick="modulus()">%</button>
+			<button class="click signs" id="b1" type="button" onclick="divide()">/</button>
+		</div>
+		
+		<div class="p2" id="p2">
+			<button class="click numbs" id="b1" type="button" onclick="fun7()">7</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun8()">8</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun9()">9</button>
+			<button class="click signs" id="b1" type="button" onclick="mult()">*</button>
+		</div>
+		
+		<div class="p3" id="p3">
+			<button class="click numbs" id="b1" type="button" onclick="fun4()">4</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun5()">5</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun6()">6</button>
+			<button class="click signs" id="b1" type="button" onclick="sub()">-</button>
+		</div>
+		
+		<div class="p4" id="p4">
+			<button class="click numbs" id="b1" type="button" onclick="fun()">1</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun2()">2</button>
+			<button class="click numbs" id="b1" type="button" onclick="fun3()">3</button>
+			<button class="click signs" id="b1" type="button" onclick="sum()">+</button>
+		</div>
+		
+		<div class="p5" id="p5">
+			<button class="click numbs" id="b1" type="button" onclick="fun0()">0</button>
+			<button class="click numbs" id="b1" type="button" onclick="dot()">.</button>
+			<button class="click numbs" id="b1" type="button" onclick="square()"><sub>x</sub>2</button>
+			<button class="click signs" id="b1" type="button" onclick="eql()">=</button>
+		</div>
+	
+	
+	</form>
+
+
+
+</div>
+</body>
+<script>
+
+var b1="";
+var previous;
+var c1;
+var d1;
+var v1=document.getElementById("led");
+var sign;
+
+window.onload=function(){
+v1.value="0";
+}
+
+function fun(){
+b1=b1+"1";
+v1.value=b1;
+}
+
+function fun2(){
+b1=b1+"2";
+v1.value=b1;
+}
+
+function fun3(){
+b1=b1+"3";
+v1.value=b1;
+}
+
+function fun4(){
+b1=b1+"4";
+v1.value=b1;
+}
+
+function fun5(){
+b1=b1+"5";
+v1.value=b1;
+}
+
+function fun6(){
+b1=b1+"6";
+v1.value=b1;
+}
+
+function fun7(){
+b1=b1+"7";
+v1.value=b1;
+}
+
+function fun8(){
+b1=b1+"8";
+v1.value=b1;
+}
+
+function fun9(){
+b1=b1+"9";
+v1.value=b1;
+}
+
+function fun0(){
+b1=b1+"0";
+v1.value=b1;
+}
+
+function sum(){
+sign="+";
+previous=v1.value;
+v1.value="";
+b1="";
+}
+
+function sub(){
+sign="-";
+previous=v1.value;
+v1.value="";
+b1="";
+}
+
+function divide(){
+sign="/";
+previous=v1.value;
+v1.value="";
+b1="";
+}
+
+function mult(){
+sign="*";
+previous=v1.value;
+v1.value="";
+b1="";
+}
+
+function modulus(){
+sign="%";
+previous=v1.value;
+v1.value=previous+" "+"%";
+}
+
+function dot(){
+b1=b1+".";
+v1.value=b1;
+}
+
+function square(){
+sign="x";
+previous=v1.value;
+v1.value=previous+" "+"sq";
+}
+
+function eql(){
+
+
+if(sign=="+"){
+d1=parseFloat(previous)+parseFloat(v1.value);
+v1.value=d1;
+}
+
+else if(sign=="-"){
+d1=parseFloat(previous)-parseFloat(v1.value);
+v1.value=d1;
+
+}
+
+else if(sign=="/"){
+d1=parseFloat(previous)/parseFloat(v1.value);
+v1.value=d1;
+}
+
+else if(sign=="*"){
+d1=parseFloat(previous)*parseFloat(v1.value);
+v1.value=d1;
+}
+
+else if(sign=="%"){
+d1=parseInt(previous)/100;
+v1.value=d1;
+}
+
+else if(sign=="x"){
+d1=parseFloat(previous)*parseFloat(previous);
+v1.value=d1;
+}
+
+}
+
+function ac(){
+v1.value="";
+b1="";
+}
+
+function ce(){
+alert((v1.value).length);
+<!-- v1.value=""; -->
+
+var n="";
+for(var i=0; i<(v1.value).length-1; i++){
+n=n+v1.value[i];
+}
+v1.value=n;
+b1=n;
+}
+
+
+var ans="777";
+for(var i=0; i<ans.length; i++){
+alert(ans[i]);
+}
+
+</script>
+</html>
