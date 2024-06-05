@@ -1,0 +1,134 @@
+<html>
+
+<head>
+<title>Dynamic Creation Of Inputs</title>
+
+<style>
+.flex{
+display:flex;
+flex-wrap:wrap;
+flex-direction:column;
+}
+
+.space-center{
+justify-content:center;
+align-items:center;
+}
+
+.maincontainer{
+height:100vh;
+width:100%;
+}
+
+.p1{
+background-color:#97FF00;
+padding:1rem 2rem 2rem 2rem;
+border-radius:15px;
+}
+
+
+.labels{
+font-size:25px;
+margin:.7rem 1rem 0rem 0rem;
+font-weight:bold;
+}
+
+.input{
+border-radius:15px;
+border:1px solid black;
+padding:0rem 1rem 0rem 1rem;
+}
+
+.continue{
+height:50px;
+width:50px;
+border-radius:50%;
+border:1px solid black;
+background:black;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+font-weight:bold;
+margin:0rem 0rem 0rem 1rem;
+
+}
+
+.remove{
+height:50px;
+width:50px;
+border-radius:50%;
+border:1px solid black;
+background:parret;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:35px;
+font-weight:bold;
+margin:0rem 0rem 0rem 1rem;
+
+}
+
+.part1{
+display:flex;
+margin:.5rem 0rem .5rem 0rem;
+}
+</style>
+</head>
+<body>
+
+<div id="maincontainer" class="maincontainer flex space-center">
+	<div class="p1 flex space-center" id="p1">
+		<h1 class="heading">Dynamic Creation</h1>
+		<div id="part1" class="part1">
+		<label class="labels" id="t1" onclick="fun()">Label</label>
+		<input class="input" id="t2" type="number">
+		<button class="continue" id="continue" onclick="fun2()">+</button>
+		<button class="remove" id="remove" onclick="fun3(this)">-</button>
+		</div>
+	</div>
+	<div>
+		<label class="labels">Total:</label><span id="total" class="labels">0</span>
+	</div>
+</div>
+
+
+
+</body>
+<!-- we have created dynamic creation of inputs boxes directly from javascript (by clicking on plus button it increase the whole line) -->
+<script>
+
+var v1=document.getElementById("p1");
+var totalLabel=document.getElementById("total");
+function fun2(e){
+var newdiv=document.createElement("div");
+
+newdiv.className="part1";
+newdiv.id="part1";
+
+newdiv.innerHTML=`<br><label class=labels id=t1 onclick=fun()>Label</label>
+<input class=input id=t2 type=text><button class=continue id=continue onclick=fun2()>+</button>
+<button class=remove id=remove onclick=fun3(this)>-</button><br>`;
+v1.appendChild(newdiv);
+updateTotal();
+}
+
+function fun3(e){
+e.parentNode.remove();
+updateTotal();
+
+}
+
+function updateTotal(){
+var inputs=document.querySelectorAll('.input');
+var sum=0;
+inputs.forEach(function (input){
+sum+=parseInt(input.value) ||0;
+});
+totalLabel.textContent=sum;
+}
+
+
+</script>
+</html>
