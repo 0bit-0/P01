@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Using Regular Expressions</title>
+<style>
+.flex{
+display:flex;
+flex-direction:column;
+flex-wrap:wrap;
+}
+
+.space-center{
+justify-content:center;
+align-items:center;
+}
+
+.maincontainer{
+height:100vh;
+width:100%;
+}
+
+.part1{
+background-color:#9ECAFF;
+padding:2rem;
+width:35%;
+border-radius:10px;
+box-shadow:10px 5px 5px black;
+}
+
+.fill{
+padding:.7rem 1rem .7rem 1rem;
+border-radius:10px;
+border:1px solid black;
+width:20rem;
+margin:0rem 0rem 1rem 0rem;
+}
+
+.messagebox{
+font-size:25px;
+font-weight:bold;
+margin:2rem 0rem;
+}
+
+.click{
+padding:.7rem 1rem;
+border-radius:10px;
+border:1px solid black;
+width:20rem;
+margin:1rem 0rem 0rem 0rem;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div id="maincontainer" class="maincontainer flex space-center">
+	<form id="part1" class="part1 flex space-center">
+		<h1 class="heading">Regular Expression</h1>
+		<input type="text" id="box" class="fill" placeholder="Phone Number">
+		<div class="example">For Example: +91 9XX-1X6-3XXX</div>
+		<button type="button" class="click" id="click" onclick="getdata()">Submit</button>
+		<div class="messagebox" id="messagebox">
+		Message Here:
+		</div>
+	</form>
+</div>
+</body>
+
+<script>
+
+function getdata(){
+var box=document.getElementById("box").value;
+var messagedata=document.getElementById("messagebox");
+
+alert(box);
+
+<!-- var c=/[a-z]+/; -->
+var c=/^\+91 [6-9]{1}[0-9]{2}-[0-9]{3}-[0-9]{4}$/;
+<!-- var c=/^.{1}$/; -->
+if(c.test(box)){
+alert("correct");
+messagedata.innerHTML="Correct";
+}
+
+else{
+messagedata.innerHTML="Wrong Entry";
+}
+
+}
+
+
+</script>
+</html>
