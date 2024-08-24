@@ -1,0 +1,292 @@
+body{
+	margin:0px;
+	padding:0px;
+}
+
+.flex{
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.space-around{
+	justify-content:space-around;
+}
+
+.whitecolor{
+	color:white;
+}
+
+.onlineshoping{
+	text-align:center;
+	align-items:center;
+	
+}
+
+.input{
+	margin:1.8rem 0px;	
+	padding:0rem 5rem 0rem .5rem;
+	
+}
+
+.search{
+	background:transparent;
+	z-index:2;
+	margin:18px 0px 0px -60px;
+	border:0px solid transparent;
+}
+
+.navbar{
+	background:#1f1f38;
+	line-height:1rem;
+	position:sticky;
+	top:0;
+	left:0;
+	z-index:10;
+}
+
+.navlist{
+	list-style:none;
+	font-size:1.3rem;
+	font-weight:bold;
+}
+
+.navlist li{
+	padding:1rem 1rem;
+	
+}
+
+.navlist li:hover{
+	color:yellow;
+}
+
+.navlist li:active{
+	color:orangered;
+}
+
+
+.slider{
+	width:100%;
+	position:relative;
+	overflow:hidden;
+}
+
+.slides{
+	display:flex;
+	animation:slide 20s infinite alternate;
+}
+
+.slide{
+	flex:0 0 100%;
+	
+}
+
+.slide img{
+	width:100%;
+	height:90vh;	
+}
+
+
+@keyframes slide{
+	0%{transform:translateX(0%);}
+	25%{transform:translate(-100%);}
+	50%{transform:translate(-200%);}
+	75%{transform:translate(-300%);}
+	100%{transform:translate(0%);}
+	}
+	
+.card{
+	background:skyblue;
+	border-radius:15px;
+	padding:0rem 0rem 0rem 0rem;
+	border:2px solid black;
+	margin:0rem 1rem 1rem 1rem;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction:column;
+}
+
+.space-center{
+	justify-content:center;
+}
+.cardpic{
+	height:200px;
+	width:180px;
+	border-radius:15px;
+}
+
+.cardhead{
+	background:orange;
+	text-align:center;
+	margin:0px;
+	padding:0rem 3rem;
+}
+
+.price{
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.buy{
+	padding:.6rem 1.5rem;
+	border-radius:10px;
+	border:1px solid black;
+	background:dodgerblue;
+	transition:.2s all;
+}
+
+.buy:hover{
+	background:white;
+	
+}
+
+.buy:active
+{
+	opacity: 0.6;
+}
+
+.part3{
+	width:100%;
+	margin:2rem 0rem;
+}
+
+.databox{
+	width:40%;
+	padding:3rem 0rem;
+	background:dodgerblue;
+	border-radius:20px;
+	font-size:25px;
+	font-weight:bold;
+	align-items:center;
+}
+
+.thead1{
+	border:2px solid black;	
+}
+
+.tdata1{
+	border:2px solid black;	
+}
+
+.tbody1{
+	border:2px solid black;
+}
+
+
+.tablerow{
+	background:orange;
+	border:2px solid black;
+}
+
+.tbody1 tr{
+	border:2px solid black;
+}
+
+.footer{
+	height:50vh;
+	width:100%;
+	background:#1f1f38;
+	padding:2rem 0rem 7rem;
+}
+
+.topfoot{
+	flex-direction:column;
+}
+
+.headfoot{
+	text-align:center;
+	margin:5px;
+}
+
+.datafoot{
+	text-align:center;
+	margin:5px;
+}
+
+.socialpic li{
+	list-style:none;
+	padding:0rem 3rem 0rem 1rem;
+	
+	font-size:30px;
+}
+
+
+.listfoot{
+	list-style:none;
+	padding:0px;
+	margin:0px 1rem 0rem;
+	
+}
+
+.youtube{
+	background:red;
+	height:35px;
+	width:50px;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	border-radius:8px;
+	margin:0.3rem 3rem 0rem 1rem;
+}
+
+.triangle{
+	border-top:12px solid transparent;
+	border-bottom:12px solid transparent;
+	border-left:20px solid white;
+}
+
+.fa-youtube{
+	background:red;
+	color:white;
+}
+
+.fa-twitter{
+	color:white;
+	background:skyblue;
+	border-radius:10px;
+}
+
+.fa-facebook{
+	color:white;
+	background:blue;
+	border-radius:10px;
+}
+
+.fa-instagram{
+	color:white;
+	background:violet;
+	border-radius:10px;
+}
+
+.fa-linkedin{
+	color:white;
+	background:blue;
+	border-radius:10px;
+}
+
+.fa{
+	padding-left:10px;
+	padding-right:0px;
+	padding-bottom:5px;
+	padding-top:5px;
+	font-size:30px;
+	width:40px;
+	text-decoration:none;
+	margin:1px 1px;
+	
+	
+}
+
+.fa:hover{
+	opacity:0.7;
+}
+
+
+@media screen and (max-width:600px){
+	
+	.navbar{
+		display:none;
+	}
+}
