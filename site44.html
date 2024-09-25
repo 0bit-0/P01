@@ -1,0 +1,837 @@
+<html>
+<head>
+<title>Student Management 2</title>
+
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<style>
+
+.flex{
+display:flex;
+flex-direction:column;
+}
+
+.space-center{
+justify-content:center;
+align-items:center;
+}
+
+.maincontainer{
+width:100%;
+height:100vh;
+}
+
+.part1{
+<!-- height:100vh; -->
+}
+
+.form1{
+height:450px;
+width:700px;
+background-color:#9ECAFF;
+padding:.5rem 1rem 3rem 1rem;
+border-radius:10px;
+}
+
+.fill{
+padding:.5rem 1rem .5rem 1rem;
+border:1px solid black;
+border-radius:10px;
+margin:0rem 0rem 1.5rem 0rem;
+width:500px;
+height:45px;
+}
+
+.buttons{
+width:100%;
+display:flex;
+justify-content:space-evenly;
+}
+
+.click{
+padding:.5rem 1rem .5rem 1rem;
+border:1px solid black;
+border-radius:10px;
+width:80px;
+}
+
+
+.cross{
+width:60px;
+height:30px;
+margin:0rem 0rem 0rem 1rem;
+font-size:20px;
+background:tomato;
+border-radius:5px;
+border:1px solid black;
+}
+
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar2">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand">SBBSU</a>
+		</div>	
+			<div class="collapse navbar-collapse" id="navbar2">
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+					<a class="dropdown-collapse" data-toggle="dropdown">Home
+						<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a onclick="newstudent()" data-toggle="modal" data-target="#part1">New Student</a></li>
+								<li><a onclick="deletestudent()" data-toggle="modal" data-target="#part2">Delete</a></li>
+								<li><a onclick="updatestudent()" data-toggle="modal" data-target="#part3">Update</a></li>
+								<li><a onclick="listdata()" data-toggle="collapse" data-target="#part5">List</a></li>
+							</ul>	
+					</li>
+					<li class="dropdown">
+					<a class="dropdown-collapse" data-toggle="dropdown">Payment
+						<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a onclick="payment()" data-toggle="modal" data-target="#part4">Payment</a></li>
+								<li><a onclick="listpayment()" data-toggle="collapse" data-target="#part6">Payment List</a></li>
+							</ul>	
+					</li>
+					<li class="dropdown">
+					<a href="#home1">About Us</a>
+					</li>
+					
+					<li class="dropdown">
+					<a class="" href="#contact1">Contact</a>
+					</li>
+
+					<li class="dropdown">
+					<a class="dropdown-collapse" data-toggle="dropdown" id="currentdate" style="padding-left:950px;
+					font-size:20px; font-weight:bold;">Date</a>
+							
+					</li>		
+				</ul>
+			</div>
+	</div>
+</nav>
+
+<!-- student entry modal starts here -->
+<div id="part1" class="modal fade" data-backdrop="static">
+	<div id="p1" class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header bg-warning"><h4><b>New Student Entry</b></h4></div>
+			<div class="modal-body">
+			<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<input type="text" class="form-control" id="name" placeholder="UserName"><br>
+					<input type="number" class="form-control" id="userid" placeholder="UserId"><br>
+					<input type="number" class="form-control" id="contact" placeholder="Contact"><br>
+					<input type="text" class="form-control" id="course" placeholder="Course"><br>
+					<input type="number" class="form-control" id="payment" placeholder="Payment"><br>
+					<input type="date" class="form-control" id="newdate"><br>
+						
+					<div class="pull-right">
+					<input id="save" class="btn btn-success" value="Save" type="button" onclick="savedata()">
+					</div>
+				</div>		
+				</form>
+			</div>	
+			</div>
+			<div class="modal-footer">
+				<input id="close" class="btn btn-danger" value="Close" type="button" data-dismiss="modal">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- student entry modal ends here -->
+
+<!-- student delete modal starts here -->
+<div id="part2" class="modal fade" data-backdrop="static">
+	<div id="p2" class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header"><h3>Delete Student Detail</h3></div>
+			<div class="modal-body">
+				<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<select id="pulldown" class="form-control" onchange="selectid(this)">
+			
+					</select><br>
+					<input type="text" class="form-control" id="name1" placeholder="UserName"><br>
+					<div>
+						<input id="save" class="btn btn-success" value="Delete" type="button" onclick="deleterow()" data-dismiss="modal">
+					</div>
+				</div>
+				</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input id="close" class="btn btn-danger" value="Close" type="button" data-dismiss="modal">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- student delete modal ends here -->
+
+<!-- student update modal starts here -->
+<div id="part3" class="modal fade" data-backdrop="static">
+	<div id="p3" class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header"><h3>Update Student Detail</h3></div>
+			<div class="modal-body">
+				<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<select id="pulldown1" class="form-control" onchange="upselectid(this)">
+			
+					</select><br>
+					<input type="text" class="form-control" id="name2" placeholder="UserName"><br>
+					<div>
+						<input id="save" class="btn btn-success" value="Update" type="button" onclick="upsavedata()" data-dismiss="modal">
+					</div>
+				</div>	
+				</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input id="close" class="btn btn-danger" value="Close" type="button" data-dismiss="modal">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- student update modal ends here -->
+
+<!-- student payment modal starts here -->
+
+<div id="part4" class="modal fade" data-backdrop="static">
+	<div id="p4" class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header"><h3>Student Payment</h3></div>
+			<div class="modal-body">
+				<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<select id="pulldown2" class="form-control" onchange="payselect(this)">
+			
+					</select><br>
+					<input type="number" class="form-control" id="amount" placeholder="Amount"><br>
+					<input type="date" class="form-control" id="date"><br>
+					<div>
+						<input id="list" class="btn btn-info" value="List" type="button" onclick="listpayment()" 
+						data-toggle="modal" data-target="#part6">
+						<input id="save" class="btn btn-success" value="Save" type="button" onclick="savepayment()">
+					</div>
+				</div>	
+				</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input id="close" class="btn btn-danger" value="Close" type="button" data-dismiss="modal">
+			</div>
+		</div>
+	</div>
+</div>	
+<!-- student payment modal ends here -->
+
+<!-- All Student List Table Starts Here -->
+<div id="part5" class="container-fluid collapse" data-backdrop="static" style="margin-top:50px;">
+	<h2 class="text-center">All Student List</h2>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover table-condensed" id="table1">
+				<thead class="thead1" id="thead1">
+					<tr class="success">
+						<th>Name</th>
+						<th>Id</th>
+						<th>Contact</th>
+						<th>Course</th>
+						<th>Payment</th>
+						<th>Date</th>
+					</tr>	
+				</thead>
+					
+				<tbody class="tbody1" id="tbody1">
+					
+				</tbody>
+		</table>
+	</div>
+</div>
+<!-- All Student List Table Ends Here -->	
+
+<!-- Payment List Starts Here -->
+<div id="part6" class="container collapse" data-backdrop="static" style="margin-top:50px;">
+	<h2 class="text-center">Payment List Table</h2>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover table-condensed" id="table2">
+			<thead class="thead1" id="thead2">
+				<tr class="success">
+					<th>Id</th>
+					<th>Amount</th>
+					<th>Last Pay Date</th>
+					<th>Payment Date</th>
+					<th>Months Late</th>
+					<th>Days Late</th>
+				</tr>	
+			</thead>
+					
+			<tbody class="tbody1" id="tbody2">
+					
+					
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- Payment List Ends Here -->
+
+<!-- Home Section Starts Here -->
+<div class="container-fluid" id="home1" style="margin-top:50px;">	
+			<h1 class="text-info text-center">Madhvam's Software Development</h1>
+			<h3 class="text-warning text-center">We Sharpen Future</h3>
+	
+			<div class="row"><br>
+			<div class="col-md-2"></div>
+			<p class="text-secondary col-md-8 text-justify">Madhavam Software Development Company is your partner in innovation, crafting
+				to elevate your business. We’re a team of passionate developers and problem solvers, dedicated to delivering high-quality, efficient, 
+				and user-friendly applications. At Madhavam, we believe in building strong, collaborative relationships with our clients, ensuring your 
+				vision becomes a reality with creativity and precision. Let's create something amazing together</p>
+				<div class="col-md-2"></div>
+			</div>
+	</div>
+<!-- Home Section Ends Here	 -->
+	
+<!-- info section starts here	 -->
+	<div class="container-fluid" id="part2">
+		<h2 class="text-success text-center" style="margin:5rem 0rem 5rem 0rem">Our Proud Of This Year</h2><br>
+		<div class="row text-center">
+			<div class="col-md-4">
+				<a href="#demo" data-toggle="collapse"><img class="bg-info img-circle" src="D:\Broken\Do it\WhatsApp Image 2024-06-28 at 10.31.32_41ed6a9e.jpg" height="250px"
+				width="250px"></a>
+				
+				<div id="demo" class="collapse container text-center" style="width:30%">
+					<p>Name : Bhupinder Sehjal</p>
+					<p>Address : Jalandhar</p>
+					<p>Contact : 4567890123</p>
+					<p>Developer : .Net</p>
+				</div>
+			</div>	
+			
+			<div class="col-md-4">
+				<a href="#demo2" data-toggle="collapse"><img class="bg-info" src="0bit-0.png" height="250px"
+				width="250px" style="border-radius:100%"></a>
+				
+				<div id="demo2" class="collapse container text-center" style="width:30%">
+					<p>Name : Nitish Banga</p>
+					<p>Address : Hoshiarpur</p>
+					<p>Contact : 4567890123</p>
+					<p>Developer : Spring Boot</p>
+				</div>
+			</div>	
+			
+			<div class="col-md-4">
+				<a href="#demo3" data-toggle="collapse"><img class="bg-info" src="0bit-0.png" height="250px"
+				width="250px" style="border-radius:100%"></a>
+				
+				<div id="demo3" class="collapse container text-center" style="width:30%">
+					<p>Name : Rahul Saini</p>
+					<p>Address : Hoshiarpur</p>
+					<p>Contact : 4567890123</p>
+					<p>Developer : MERN</p>
+				</div>
+			</div>	
+		</div><br><br>
+	</div>
+<!-- info section ends here -->
+
+<!-- Carousel starts Here -->
+<div id="carousel2" class="container-fluid" style="margin-top:50px;">
+	<div id="carouselslide" class="carousel slide" data-interval="2000" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#carouselslide" data-slide-to="0"></li>
+		<li data-target="#carouselslide" data-slide-to="1"></li>
+		<li data-target="#carouselslide" data-slide-to="2"></li>
+		<li data-target="#carouselslide" data-slide-to="3"></li>
+	</ol>
+	
+		<div class="carousel-inner">
+			<div class="item active"><img src="D:\Images\pexels-danny-meneses-340146-943096.jpg" style="width:100%; max-height:600px; min-height:200px;"></div>
+			<div class="item"><img src="D:\Images\pexels-hiteshchoudhary-1261427.jpg" style=" width:100%; max-height:600px; min-height:200px;"></div>
+			<div class="item"><img src="D:\Images\pexels-goumbik-574071.jpg" style="width:100%; max-height:600px; min-height:200px;"></div>
+			<div class="item"><img src="D:\Images\pexels-pixabay-270366.jpg" style="width:100%; max-height:600px; min-height:200px;"></div>
+		</div>
+		
+			<a href="#carouselslide" class="left carousel-control" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			
+			<a href="#carouselslide" class="right carousel-control" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		
+	</div>
+</div>
+<!-- Carousel Ends Here -->
+
+
+
+<!-- Contact Section Starts Here-->
+<div class="container-fluid">
+	<div class="row" id="contact1">
+		<h1 class="text-warning text-center">Contact</h1>
+		<h3 class="text-info text-center">We need your suggestion</h3>
+		<div class="col-md-5" style="font-size:25px;">
+			<div style="margin-left:50px;">
+			<span class="glyphicon glyphicon-user img-circle" style="border:solid black; padding:.4rem;"></span><span> Hoshiarpur, Punjab</span><br>
+			<span class="glyphicon glyphicon-earphone img-circle" style="border:solid black; padding:.4rem;"></span><span> 9834567890</span><br>
+			<span class="glyphicon glyphicon-envelope img-circle" style="border:solid black; padding:.4rem;"></span><span> Madhavam@gmail.com</span>
+			</div>
+		</div><br>
+		
+		<div class="col-md-7">
+			<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+				<div class="row">
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="Name" placeholder="Name"><br>
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" id="email" placeholder="Email">
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="col-md-12">
+						<textarea type="text" class="form-control" id="Comment" placeholder="Any Suggestion Here"></textarea>
+					</div>
+				</div><br>
+						<input id="save" class="btn btn-success form-control" value="Save" type="button" onclick="">
+				</div>	
+				</form>
+			</div>	
+		</div>
+	</div>
+</div>
+<!-- Contact Section Ends Here	 -->
+
+<footer class="container-fluid text-center footer" style=" background:#222222; border-color: #e7e7e7; padding:5rem;">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<ul class="list-inline" style="font-size:30px;">
+				<li><a href=""><span class="fa-brands fa-instagram" style="color:white;"></span></a></li>
+				<li><a href=""><span class="fa-brands fa-github" style="color:white;"></span></a></li>
+				<li><a href=""><span class="fa-brands fa-twitter" style="color:white;"></span></a></li>
+				<li><a href=""><span class="fa-brands fa-linkedin" style="color:white;"></span></a></li>
+				<li><a href=""><span class="fa-brands fa-youtube" style="color:white;"></span></a></li>
+			</ul>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="" style="color:#9d9d9d;">&copy; All Rights Reserved</div>
+</footer>
+
+
+</body>
+<script>
+
+var mon=new Date().getMonth()+1;
+var year=new Date().getFullYear();
+var day=new Date().getDay();
+var date=new Date().getDate();
+var hour=new Date().getHours();
+var minute=new Date().getMinutes();
+var sec=new Date().getSeconds();
+
+var a=[];
+
+window.onload=function(){
+a=[{username:'Karanpreet',userid:21002024,contact:8146962345,course:'CSE',payment:25000,date:"2024-02-05"},
+{username:'Nitish',userid:21002009,contact:8146962346,course:'CSE',payment:22000,date:"2024-02-02"},
+{username:'Bhupinder',userid:21002004,contact:8146962347,course:'CSE',payment:26000,date:"2024-02-03"},
+{username:'Harmanjeet',userid:21002031,contact:8146962348,course:'CSE',payment:21000,date:"2024-02-01"},
+{username:'Sourav',userid:21002043,contact:8146962349,course:'CSE',payment:20000,date:"2024-02-05"}]
+
+var date1=document.getElementById("currentdate");
+date1.innerHTML=date+"-"+mon+"-"+year;
+
+
+}
+
+
+function savedata(){
+	var name=document.getElementById("name").value;
+	var id=document.getElementById("userid").value;
+	var usercontact=document.getElementById("contact").value;
+	var usercourse=document.getElementById("course").value;
+	var userpayment=document.getElementById("payment").value;
+	var newdate=document.getElementById("newdate").value;
+	
+	var obj={
+	username:name,
+	userid:id,
+	contact:usercontact,
+	course:usercourse,
+	payment:userpayment,
+	date:newdate
+	
+	}
+	
+	a.push(obj);
+	
+	alert("Name:"+obj.username+" "+"id:"+obj.userid+" "+"contact:"+obj.contact);
+	
+	console.log(a);
+}
+
+function newstudent(){
+	document.getElementById("part1").style.display = 'flex';
+}
+
+function liststudent(){
+	document.getElementById("part2").style.display = 'flex';
+	listdata();
+}
+
+function listdata(){
+
+	//document.getElementById("part2").style.display = 'flex';
+
+	var t;
+<!-- var l=a.length-2; -->
+	for(k=0; k<a.length-1; k++)
+	{
+		for(j=0; j<=a.length-2-k; j++)
+		{
+			if(parseInt(a[j].userid)>parseInt(a[j+1].userid))
+			{
+				t=a[j];
+				a[j]=a[j+1];
+				a[j+1]=t;
+			}
+		}
+		<!-- l--; -->
+	}	
+console.log(a);
+
+	tb=document.getElementById("tbody1");
+	tb.innerHTML=" ";
+	a.forEach(function (L,index){
+	tb.innerHTML=tb.innerHTML+"<tr><td>"+L.username+"</td>"+"<td>"+L.userid+"<td>"+L.contact+"</td>"
+	+"<td>"+L.course+"</td>"+"<td>"+L.payment+"</td>"+"<td>"+L.date+"</td></tr>";
+
+	});
+
+<!-- list(21002024); -->
+}
+
+function deletestudent(){
+
+//document.getElementById("part3").style.display = 'flex';
+
+var tb1=document.getElementById("pulldown");
+tb1.innerHTML=" ";
+tb1.innerHTML=tb1.innerHTML+"<option>Select</option>";
+a.forEach(function (L,index){
+tb1.innerHTML=tb1.innerHTML+"<option>"+L.userid+"</option>";
+});
+
+}
+
+var temp=[];
+var studentname=document.getElementById("name1");
+var clickedvalue;
+var nameindex;
+
+function selectid(e){
+alert("id:"+e.value);
+
+clickedvalue=e.value;
+
+var found=0;
+
+a.forEach(function (L,index){
+if(e.value==L.userid){
+found=1;
+studentname.value=L.username;
+alert("index:"+index);
+nameindex=index;
+alert("Name:"+a[nameindex].username);
+
+}
+
+else{
+temp.push(L);
+}
+});
+console.log(temp);
+
+}
+
+<!-- deleterow function starts here -->
+
+function deleterow(){
+
+a.length=0; //this command clear the array
+
+temp.forEach(function(K,index){
+a.push(K);
+});
+
+
+for(i=0; i<temp.length; i++){
+console.log(temp[i].userid);
+a[i]=temp[i];
+
+console.log(a[i]);
+}
+
+console.log(a);
+alert("Deleted Successfully");
+
+}
+<!-- deleleterow function ends here -->
+
+function updatestudent(){
+
+//document.getElementById("part4").style.display = 'flex';
+
+var tb2=document.getElementById("pulldown1");
+tb2.innerHTML=" ";
+tb2.innerHTML=tb2.innerHTML+"<option>Select</option>";
+a.forEach(function (L,index){
+tb2.innerHTML=tb2.innerHTML+"<option>"+L.userid+"</option>";
+
+});
+
+}
+
+
+
+var upstudentname=document.getElementById("name2");
+var upclickvalue;
+var indexvalue;
+
+function upselectid(p){
+alert("id:"+p.value);
+
+upclickvalue=p.value;
+
+var found=0;
+
+a.forEach(function (L,index){
+if(p.value==L.userid){
+found=1;
+upstudentname.value=L.username;
+alert("Index:"+index);
+indexvalue=index;
+alert("Name:"+a[indexvalue].username);
+}
+});
+
+}
+
+function upsavedata(){
+
+	var name=document.getElementById("name2").value;
+	var id=upclickvalue;
+	
+	a[indexvalue].username=name;
+	console.log(a);
+	alert("Updated Successfully");
+}
+
+//this function is for take the userids from a[] array and display to pulldown2.
+function payment(){
+//document.getElementById("part5").style.display = 'flex';
+
+var tb3=document.getElementById("pulldown2");
+tb3.innerHTML="";
+tb3.innerHTML=tb3.innerHTML+"<option>Select</option>"
+a.forEach(function (L,index){
+tb3.innerHTML=tb3.innerHTML+"<option>"+L.userid+"</option>";
+});
+
+}
+
+var payid;
+
+//this function is for by onchange it compare the selected id to id from a array and then assign index value to listindex.
+ 
+function payselect(F){
+payid=F.value;
+
+alert("id:"+payid);
+
+var found=0;
+
+a.forEach(function (L,index){
+if(payid==L.userid){
+found=1;
+alert("index of Selected Id:"+index);
+listindex=index;
+alert("Id:"+a[listindex].userid+" "+"date of payment:"+a[listindex].date);
+console.log("payment date:"+a[listindex].date);
+}
+});
+
+
+}
+
+
+var pay=[{userid:21002009,amount:4000,date:'2024-04-26'},
+{userid:21002031,amount:3000,date:'2024-04-22'},
+{userid:21002024,amount:4000,date:'2024-04-16'},
+{userid:21002043,amount:3000,date:'2024-04-30'},
+{userid:21002004,amount:4000,date:'2024-04-5'},
+{userid:21002031,amount:5000,date:'2024-04-2'},
+{userid:21002004,amount:3000,date:'2024-03-14'},
+{userid:21002024,amount:6000,date:'2024-04-17'},
+{userid:21002043,amount:3000,date:'2024-03-12'},
+{userid:21002009,amount:5000,date:'2024-04-13'},
+{userid:21002024,amount:6000,date:'2024-03-9'}];
+
+
+var listindex=1;
+function savepayment(){
+
+var payamount=document.getElementById("amount").value;
+var paydate=document.getElementById("date").value;
+
+var obj5={
+userid:payid,
+amount:payamount,
+date:paydate
+}
+
+alert("id:"+obj5.userid);
+pay.push(obj5);
+console.log(pay);
+
+}
+
+function listpayment(){
+
+
+var s=0;
+var count=0;
+
+
+//this is for sorting the pay array with respect to userid
+var t;
+	for(k=0; k<pay.length-1; k++)
+	{
+		for(j=0; j<=pay.length-2-k; j++)
+		{
+			if(parseInt(pay[j].userid)>parseInt(pay[j+1].userid))
+			{
+				t=pay[j];
+				pay[j]=pay[j+1];
+				pay[j+1]=t;
+			}
+		}
+	}	
+
+alert("all record list");
+
+ var tb4=document.getElementById("tbody2");
+	tb4.innerHTML=" ";
+	
+	var n=pay[0].userid;
+	var pindexvalue;
+	var E=0;
+	pay.forEach(function (P,index){
+	
+	
+	//this part is for spliting the day with .split method and save it in variables
+	var splitmonth = a[listindex].date.split('-');
+	var x1 = splitmonth[0];
+	var x2 = splitmonth[1];
+	var x3 = splitmonth[2];
+	console.log("month of payment: "+x2);
+	
+	var splitmonth = P.date.split('-');
+	var x4 = splitmonth[0];
+	var x5 = splitmonth[1];
+	var x6 = splitmonth[2];
+	console.log("month of last payment: "+x5);
+	
+	//to find out the monthslate and dayslate value
+	monthslate= x5-x2;
+	dayslate=x6-x3;
+	
+	s=s+parseInt(P.amount);  //this part is for total of all amount and we have used it in pay.forEach loop for every record
+	count=count+1; //for count of records in pay array.
+	
+	//this if part is for comparing n variable which has p[0] index compare with p.userid and then
+	//total the amount of same id's payment amount
+	
+	if(n==P.userid){
+		E=E+parseInt(P.amount);  //E var stores the same id's amount and add it
+		pindexvalue=index;
+		tb4.innerHTML=tb4.innerHTML+"<tr><td>"+P.userid+"</td>"+"<td>"+P.amount+"</td>"+"<td>"+P.date+
+	 "</td>"+"<td>"+a[listindex].date+"</td>"+"<td>"+monthslate+"</td>"+"<td>"+dayslate+"</td></tr>";
+// these above lines are for printing all data of saved record
+	}
+	
+	//else part is printing subtotal of same ids amount then it prints the records which are left
+	//then it assign n to next userid,	E=0, and E again saves the amount
+	else{
+	tb4.innerHTML=tb4.innerHTML+"<tr style=background:skyblue;><td> Subtotal Total</td>"+"<td>"+E+"</td>"+
+	"<td></td>"+"<td></td>"+"<td></td>"+"<td></td></tr>";
+	tb4.innerHTML=tb4.innerHTML+"<tr><td>"+P.userid+"</td>"+"<td>"+P.amount+"</td>"+"<td>"+P.date+
+	 "</td>"+"<td>"+a[listindex].date+"</td>"+"<td>"+monthslate+"</td>"+"<td>"+dayslate+"</td></tr>";
+	 n=P.userid;
+	 E=0;
+	 E=E+P.amount;
+	}
+	
+	});
+	
+	//loop cant't print the last id's Subtotal so we have to write it here, at last E has the subtotal value
+	tb4.innerHTML=tb4.innerHTML+"<tr style=background:skyblue;><td> Subtotal Total</td>"+"<td>"+E+"</td>"+
+	"<td></td>"+"<td></td>"+"<td></td>"+"<td></td></tr>";
+	
+	//this line we have write here after loop because we have to print the total amount only onetime
+	tb4.innerHTML=tb4.innerHTML+"<tr style=background:yellow;><td>"+"Total"+"</td>"+"<td>"+s+"</td>"+
+	"<td></td>"+"<td></td>"+"<td></td>"+"<td></td></tr>";
+
+alert("Number Of Records:"+count);
+
+
+}
+
+
+var tempclick;
+var listindex;
+
+
+/* i have called this  function at listdata() in the end of the function
+function list(id){
+
+tempclick=id.value;
+
+var found=0;
+
+a.forEach(function (L,index){
+if(id==L.userid){
+found=1;
+alert("index:"+index);
+listindex=index;
+alert("Id:"+a[listindex].userid+" "+"date of payment:"+a[listindex].date);
+console.log("payment date:"+a[listindex].date);
+}
+});
+
+}  */	
+
+</script>
+
+</html>
