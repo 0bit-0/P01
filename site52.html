@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Appointment Section</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+</head>	
+<body>
+<!-- Appointment form Starts Here -->
+			<div class="container-fluid" style="margin-top:100px">
+				<form class="form-horizontal">
+			<div class="form-group">
+			<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+			<h2 class="text-center"><b>Appointment</b></h2>
+				<div class="row">
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="appointname" placeholder="First Name" required><br>
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="appointlastname" placeholder="Last Name" required><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<input type="date" class="form-control" id="appointdate" required><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<input type="email" class="form-control" id="appointemail" placeholder="Email" required><br>
+					</div>
+					<div class="col-md-6">
+						<input type="number" class="form-control" id="appointcontact" placeholder="Contact" required><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<select class="form-control" id="bookingfor" required>
+							<option>option 1</option>
+							<option>option 2</option>
+							<option>option 3</option>
+						</select><br>
+					</div>
+				</div>
+				<div class="pull-right">
+					<input id="appointlist1" class="btn btn-info" value="List" type="button" data-toggle="collapse" data-target="#part6" onclick="appointlist()">
+					
+					<input id="appointsave" class="btn btn-success" value="Save" type="submit" onclick="appointsave1()" data-dismiss="modal">
+				</div>
+				</div>
+				<div class="col-md-3"></div>
+				</div>
+			</div>		
+		</form>
+			</div>
+<!-- Appointment modal Ends Here	 -->
+
+<!-- appointment Table Starts Here	 -->
+<div class="container collapse" id="part6" data-backdrop="static" style="margin-top:100px;">
+	<div class="table-responsive">
+	<h2 class="text-center"><b>AppointMent List</b></h2>
+	<table class="table table-striped table-bordered table-hover table-condensed" id="apptable">
+		<thead id="thead1">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Date</th>
+				<th>Email</th>
+				<th>Contact</th>
+				<th>Booking For</th>
+			</tr>
+		</thead>
+		
+		<tbody id="appointtable">
+		
+		</tbody>
+	</table>
+		<div class="pull-right">
+		<button class="btn btn-warning" data-toggle="modal" data-target="#part7" type="button">Delete Between</button>
+		<button class="btn btn-danger" button="button" onclick="deleteall()">Delete All</button>
+		</div>
+	</div>	
+</div>
+<!-- appointment Table Ends Here	 -->
+
+<!-- delete between modal starts here -->
+<div id="part7" class="modal fade" data-backdrop="static">
+	<div id="p7" class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header bg-warning"><b>Delete Between</b></div>
+			<div class="modal-body">
+			<div class="container-fluid">
+				<form class="form-horizontal">
+				<div class="form-group">
+					<label>From Date:
+					<input type="date" class="form-control" id="fromdate" required>
+					</label><br>
+					<label>To Date:
+					<input type="date" class="form-control" id="todate" required>
+					</label><br>
+					
+					<div>
+					<input id="login" class="btn btn-success" value="Delete" type="submit" onclick="delbetween()" data-dismiss="modal">
+					</div>
+				</div>		
+				</form>
+			</div>	
+			</div>
+			<div class="modal-footer">
+				<input id="close" class="btn btn-danger" value="Close" type="button" data-dismiss="modal">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- delete between modal ends here -->
+<script>
+
+<!-- appointment save function starts here -->
+
+function appointsave1(){
+
+var appname = document.getElementById("appointname").value;
+var applastname = document.getElementById("appointlastname").value;
+var appdate = document.getElementById("appointdate").value;
+var appemail = document.getElementById("appointemail").value;
+var appcontact = document.getElementById("appointcontact").value;
+var appbooking = document.getElementById("bookingfor").value;
+
+
+var appoint = JSON.parse(localStorage.getItem('storage1')) ||[];
+
+var obj1={
+name:appname,
+lastname:applastname,
+date:appdate,
+email:appemail,
+contact:appcontact,
+booking:appbooking
+};
+
+appoint.push(obj1);
+
+localStorage.setItem('storage1',JSON.stringify(appoint));
+alert("Appointment Saved to appoint array");
+ appointlist();
+}
+
+<!-- appointment save function ends here -->
+
+<!-- Appointment list function starts here -->
+
+function appointlist(){
+
+var appoint = JSON.parse(localStorage.getItem('storage1')) ||[];
+
+var record2=document.getElementById("appointtable");
+
+	record2.innerHTML= " ";
+	appoint.forEach((L,index)=>{
+	record2.innerHTML=record2.innerHTML+`<tr><td>${L.name}</td><td>${L.lastname}</td><td>${L.date}</td><td>${L.email}</td><td>${L.contact}</td><td>${L.booking}</td>
+	<td class="text-center">
+	<button class="btn btn-danger" onclick="deleteappoint(${index},'${encodeURIComponent(JSON.stringify(L))}')">Delete</button></td></tr>`;
+	
+	});
+	
+}
+<!-- Appointment list function ends here -->
+
+
+<!-- Appointment delete function starts here -->
+function deleteappoint(index,L){
+ var appoint = JSON.parse(localStorage.getItem('storage1')) || [];
+
+//Remove the event at the specified index
+    appoint.splice(index, 1);
+
+    // Update localStorage
+    localStorage.setItem('storage1', JSON.stringify(appoint));
+
+    // Reload the events list to reflect the change
+    appointlist();
+    alert("AppointMent Deleted Successfully");
+
+}
+
+<!-- Appointment delete function ends here -->
+
+
+<!-- delete all function starts here -->
+
+function deleteall(){
+    // Remove the 'events1' key from localStorage
+    localStorage.removeItem('storage1');
+
+    // Optionally, update the UI or alert the user
+    appointlist(); // This function can refresh the event list to show no data
+    alert("All data has been cleared from local storage");
+}
+<!-- delete all function ends here -->
+
+<!-- delete between function starts here -->
+
+function delbetween() {
+    var from = new Date(document.getElementById("fromdate").value);
+    var to = new Date(document.getElementById("todate").value);
+	
+    var appoint = JSON.parse(localStorage.getItem('storage1')) || [];
+
+console.log("appoint length"+appoint.length);
+
+	var length=appoint.length-1;
+	for(var i=length; i>=0; i--){
+	var arrdate = new Date(appoint[i].date);
+	if (arrdate >= from &&  arrdate<= to) {
+    appoint.splice(i, 1); 
+    }
+}
+
+    localStorage.setItem('storage1', JSON.stringify(appoint));
+    appointlist(); 
+    alert("Appointments deleted successfully between the selected dates");
+
+}
+<!-- delete between function ends here -->
+
+/*  another way of Delete between function
+
+function delbetween() {
+    var from = new Date(document.getElementById("fromdate").value);
+    var to = new Date(document.getElementById("todate").value);
+    var appoint = JSON.parse(localStorage.getItem('storage1')) || [];
+
+    // Adjust the 'to' date to include the entire day
+    to.setHours(23, 59, 59, 999);
+
+    // Filter out appointments that are within the date range
+    var updatedAppointments = appoint.filter((L) => {
+        var arrdate = new Date(L.date);
+        return arrdate < from || arrdate > to; // Keep appointments outside the date range
+    });
+
+    // Update localStorage with filtered appointments
+    localStorage.setItem('storage1', JSON.stringify(updatedAppointments));
+
+    // Update the UI or alert the user
+    appointlist();
+    alert("Appointments deleted successfully between the selected dates");
+}
+
+*/
+</script>
+
+
+</body>
+</html>
