@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Events Section</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+<div class="container-fluid">
+
+
+<!-- Event Form Starts Here -->
+	<div id="part2" class="container-fluid" style="margin-top:100px;">
+		<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<h3 class="text-warning text-center">Event</h3>
+				<input type="number" class="form-control" id="ev1" placeholder="Event Id" required><br>
+				<input type="text" class="form-control" id="ev2" placeholder="Organised By" required><br>
+				<input type="text" class="form-control" id="ev3" placeholder="Location" required><br>
+				<input type="date" class="form-control" id="ev4" required><br>
+				<input type="time" class="form-control" id="ev5" required><br>
+				<input type="text" class="form-control" id="ev6" placeholder="Main Attraction" required><br>
+					
+				<div>
+				<input id="eventlist" class="btn btn-info" value="List" type="button" onclick="list1()" data-toggle="collapse" data-target="#part3" data-dismiss="modal">
+				<input id="eventsave" class="btn btn-success" value="Save" type="submit" onclick="save()" data-dismiss="modal">
+				</div>
+			</div>		
+		</form>
+		</div>
+		<div class="col-md-3"></div>
+		</div>
+	</div>
+<!-- Event Form Ends Here	 -->
+
+<!-- Event Table Starts Here	 -->
+<div class="container collapse" id="part3" data-backdrop="static" style="margin-top:100px;">
+	<div class="table-responsive">
+	<table class="table table-striped table-bordered table-hover table-condensed" id="registertable">
+		<thead id="thead1">
+			<tr>
+				<th>Event Id</th>
+				<th>Organised By</th>
+				<th>Location</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Main Attraction</th>
+				<th class="text-center">Update Data</th>
+			</tr>
+		</thead>
+		
+		<tbody id="tbody1">
+		
+		</tbody>
+	</table>	
+	</div>	
+</div>
+<!-- Event Table Ends Here	 -->
+
+
+<!-- Event update form Starts here -->
+<div id="part4" class="container-fluid collapse" style="margin-top:100px;">
+		<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<h3 class="text-warning text-center">Update Event Here</h3>
+				<input type="number" class="form-control" id="ep1" placeholder="Event Id" required><br>
+				<input type="text" class="form-control" id="ep2" placeholder="Organised By" required><br>
+				<input type="text" class="form-control" id="ep3" placeholder="Location" required><br>
+				<input type="date" class="form-control" id="ep4" required><br>
+				<input type="time" class="form-control" id="ep5" required><br>
+				<input type="text" class="form-control" id="ep6" placeholder="Main Attraction" required><br>
+					
+				<div>
+				<input id="eventsave" class="btn btn-success" value="Update" type="" onclick="updateevent()" data-dismiss="modal">
+				</div>
+			</div>		
+		</form>
+		</div>
+		<div class="col-md-3"></div>
+		</div>
+</div>
+<!-- Event update Form Ends Here -->
+
+
+<script>
+
+
+function save(){
+
+var eventid = document.getElementById("ev1").value;
+var organised = document.getElementById("ev2").value;
+var location = document.getElementById("ev3").value;
+var date = document.getElementById("ev4").value;
+var time = document.getElementById("ev5").value;
+var mainattraction = document.getElementById("ev6").value;
+
+var events1 = JSON.parse(localStorage.getItem('events1')) ||[];
+
+var obj={
+eventid1:eventid,
+organised1:organised,
+location1:location,
+date1:date,
+time1:time,
+mainattraction1:mainattraction
+};
+
+events1.push(obj);
+
+localStorage.setItem('events1',JSON.stringify(events1));
+
+alert("Stored In LocalStorage");
+console.log(obj.id);
+}
+
+function list1(){
+
+var events1 = JSON.parse(localStorage.getItem('events1')) ||[];
+
+var record=document.getElementById("tbody1");
+
+	record.innerHTML= " ";
+	events1.forEach((L,index)=>{
+	record.innerHTML=record.innerHTML+`<tr><td>${L.eventid1}</td><td>${L.organised1}</td><td>${L.location1}</td><td>${L.date1}</td>
+	<td>${L.time1}</td><td>${L.mainattraction1}</td>
+	<td class="text-center"><button class="btn btn-warning" onclick="edit(${index},'${encodeURIComponent(JSON.stringify(L))}')" data-toggle="collapse" data-target="#part4">Edit</button>
+	<button class="btn btn-danger" onclick="deleterow(${index},'${encodeURIComponent(JSON.stringify(L))}')">Delete</button></td></tr>`;
+	
+	});
+	
+}
+
+ var editindex;
+ <!-- edit function starts here -->
+function edit(index,L){
+
+editindex = index;
+console.log(editindex);
+alert(index);
+
+
+console.log(JSON.parse(decodeURIComponent(L)));
+var v1 = JSON.parse(decodeURIComponent(L));
+
+console.log(v1.organised1);
+
+var ep1variable = document.getElementById('ep1');
+ep1variable.value = v1.eventid1;
+
+var ep2variable = document.getElementById('ep2');
+ep2variable.value = v1.organised1;
+
+var ep3variable = document.getElementById('ep3');
+ep3variable.value = v1.location1;
+
+var ep4variable = document.getElementById('ep4');
+ep4variable.value = v1.date1;
+
+var ep5variable = document.getElementById('ep5');
+ep5variable.value = v1.time1;
+
+var ep6variable = document.getElementById('ep6');
+ep6variable.value = v1.mainattraction1;
+
+}
+<!-- Edit function ends here -->
+
+<!-- updateevent function starts here -->
+function updateevent(){
+
+console.log(editindex);
+
+var epid = document.getElementById('ep1').value;
+var eporganised = document.getElementById('ep2').value;
+var eplocation = document.getElementById('ep3').value;
+var epdate = document.getElementById('ep4').value;
+var eptime = document.getElementById('ep5').value;
+var epmainattraction = document.getElementById('ep6').value;
+
+var events1 = JSON.parse(localStorage.getItem('events1')) || [];
+
+events1[editindex].eventid1 = epid;
+events1[editindex].organised1 = eporganised;
+events1[editindex].location1 = eplocation;
+events1[editindex].date1 = epdate;
+events1[editindex].time1 = eptime;
+events1[editindex].mainattraction1 = epmainattraction;
+
+
+localStorage.setItem('events1', JSON.stringify(events1));
+
+list1();
+alert("Event Updated Successfully");
+}
+<!-- updateevent function ends here -->
+
+<!-- Deleterow function Starts here -->
+var events2=[];
+function deleterow(index,L){
+ var events1 = JSON.parse(localStorage.getItem('events1')) || [];
+ 
+ var v1 = JSON.parse(decodeURIComponent(L));
+ 
+ events1.forEach((L,i)=>{
+ if(i!==index){
+ events2.push(L);
+ }
+ 
+ });
+ 
+ <!-- events1.length=0; -->
+ 
+ <!-- events2.forEach((K,index)=>{ -->
+ <!-- events1.push(K); -->
+ 
+ <!-- }); -->
+ 
+ localStorage.setItem('events1', JSON.stringify(events2));
+ 
+ list1();
+ alert("Deleted Successfully");
+
+}
+<!-- deleterow function ends here -->
+
+/* another way of delete row
+
+//Remove the event at the specified index
+    events1.splice(index, 1);
+
+    // Update localStorage
+    localStorage.setItem('events1', JSON.stringify(events1));
+
+    // Reload the events list to reflect the change
+    list1();
+    alert("Event Deleted Successfully");
+	
+*/	
+</script>
+
+
+</body>
+</html>
